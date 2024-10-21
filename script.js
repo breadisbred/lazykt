@@ -1,6 +1,3 @@
-
-
-
 // Define archetypes for teams
 const teamArchetypes = {
     "Joker Elves": ["Infiltration", "Recon"],
