@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Archetype Selector</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" id="archetypeMenu">Select Archetypes</a></li>
+                <li><a href="#" id="selectedCardsMenu">Selected Cards <span id="cardCount">0</span>/3</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Archetype Selection -->
+        <section id="archetypeSelection" class="active">
+            <h2>Select Two Archetypes</h2>
+            <div class="archetypes">
+                <button class="archetype" data-archetype="Infiltration">Infiltration</button>
+                <button class="archetype" data-archetype="Security">Security</button>
+                <button class="archetype" data-archetype="Seek and Destroy">Seek and Destroy</button>
+                <button class="archetype" data-archetype="Reckon">Reckon</button>
+            </div>
+            <h3 id="selectedArchetypesDisplay"></h3>
+        </section>
+
+        <!-- Card Selection -->
+        <section id="cardSelection">
+            <h2>Select up to 3 Cards</h2>
+            <div id="cardsContainer"></div>
+        </section>
+
+        <!-- Selected Cards -->
+        <section id="selectedCards" class="hidden">
+            <h2>Your Selected Cards</h2>
+            <div id="savedCards"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
