@@ -3,22 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Archetype Selector</title>
+    <title>Team and Equipment Selection</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
+                <li><a href="#" id="teamMenuLink">Select Team</a></li>
                 <li><a href="#" id="archetypeMenuLink">Select Archetypes</a></li>
-                <li><a href="#" id="selectedCardsMenuLink">Selected Cards <span id="cardCount">0</span>/3</a></li>
+                <li><a href="#" id="equipmentMenuLink">Select Equipment</a></li> <!-- New Equipment Menu -->
+                <li><a href="#" id="selectedCardsMenuLink">Main Interface</a></li>
             </ul>
         </nav>
     </header>
-    
+
     <main>
-        <!-- Archetype and Card Selection (Page 1) -->
-        <section id="archetypeSelection" class="active">
+        <!-- Team Selection Section -->
+        <section id="teamSelection" class="hidden">
+            <h2>Select Your Team</h2>
+            <div class="teams">
+                <button class="team" data-team="Joker Elves">Joker Elves</button>
+                <button class="team" data-team="Sex Elves">Sex Elves</button>
+                <button class="team" data-team="Sneaky Gitz">Sneaky Gitz</button>
+                <button class="team" data-team="Other">Other</button>
+            </div>
+        </section>
+
+        <!-- Archetype Selection Section -->
+        <section id="archetypeSelection" class="hidden">
             <h2>Select Two Archetypes</h2>
             <div class="archetypes">
                 <button class="archetype" data-archetype="Infiltration">Infiltration</button>
@@ -31,11 +44,25 @@
             <div id="cardsContainer"></div>
         </section>
 
-        <!-- Selected Cards (Page 2) -->
-        <section id="selectedCards" class="hidden">
-            <h2>Your TacOps</h2>
-            <div id="savedCards"></div>
+        <!-- Equipment Selection Section -->
+        <section id="equipmentSelection" class="hidden">
+            <h2>Select Equipment</h2>
+            <div id="equipmentContainer"></div>
         </section>
+
+        <!-- Main Interface (Selected Cards) Section -->
+
+        <section id="selectedCardsSection" class="hidden">
+            <h2>Your Selected TacOps & Equipment</h2>
+            <div id="savedCardsContainer">
+                <h3>TacOps</h3>
+                <div id="savedCards"></div></div>  <!-- TacOps cards go here -->
+        
+                <h3>Items</h3>
+                <div id="savedItems"></div>  <!-- Selected items go here -->
+            </div>
+        </section>
+        
     </main>
 
     <script src="script.js"></script>

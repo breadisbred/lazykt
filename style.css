@@ -13,11 +13,12 @@ header {
     background-color: #333;
     color: white;
     padding: 1rem 0;
+    text-align: center;
 }
 
 nav ul {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     list-style-type: none;
 }
 
@@ -25,6 +26,16 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
+    padding: 0.5rem;
+}
+
+/* Active section styles */
+.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
 }
 
 main {
@@ -37,11 +48,78 @@ h2 {
     text-align: center;
 }
 
+.equipment {
+    padding: 10px;
+    border: 2px solid #333;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.equipment.selected {
+    border-color: orange;
+}
+
+.equipment .name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.equipment .description {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.teams {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.team {
+    padding: 20px;
+    border: 8px solid; /* Thicker borders */
+    font-size: 1.8rem; /* Bigger font size */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-radius: 10px; /* Rounded corners */
+    min-width: 200px; /* Uniform width */
+    min-height: 150px; /* Uniform height */
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+}
+
+.team:hover {
+    background-color: #f0f0f0; /* Hover effect for better interaction */
+}
+
+/* Color-coded borders for each team */
+[data-team="Joker Elves"] {
+    border-color: #07ae95; /* Orange for Joker Elves */
+}
+
+[data-team="Sex Elves"] {
+    border-color: #890e62; /* Green for Sex Elves */
+}
+
+[data-team="Sneaky Gitz"] {
+    border-color: #0b4c2e; /* Blue for Sneaky Gitz */
+}
+
+[data-team="Other"] {
+    border-color: #000000; /* Pink for Other */
+}
+
+/* Archetype selection styles */
 .archetypes {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .archetype {
@@ -50,6 +128,10 @@ h2 {
     background-color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: 1rem;
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
 }
 
 .archetype:hover {
@@ -57,8 +139,8 @@ h2 {
 }
 
 .archetype.selected {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #f6f6f6;
+    color: rgb(0, 0, 0);
 }
 
 #selectedArchetypesDisplay {
@@ -66,9 +148,10 @@ h2 {
     text-align: center;
 }
 
+/* Card container styles */
 #cardsContainer, #savedCards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Ensures cards fit nicely on mobile */
     gap: 15px;
     margin-top: 20px;
 }
@@ -84,10 +167,15 @@ h2 {
     justify-content: space-between;
     min-height: 300px;
     transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    border-color: #ccc;
 }
 
 .card.selected {
-    border-color: orange;
+    border-color: rgb(216, 100, 11);
 }
 
 .card .title {
@@ -101,16 +189,10 @@ h2 {
     font-size: 0.9em;
 }
 
-.hidden {
-    display: none;
-}
-
-.active {
-    display: block;
-}
-
+/* Saved cards specific styles */
 #savedCards .card {
-    background-color: #ffffff;
+    background-color: #f9f8f8;
+    border-color: rgb(216, 100, 11);
 }
 
 /* Archetype color coding */
@@ -119,18 +201,38 @@ h2 {
 }
 
 [data-archetype="Security"] {
-    border-color: #FF5722; /* Orange for Security */
+    border-color: #0008ff; /* Orange for Security */
 }
 
 [data-archetype="Seek and Destroy"] {
-    border-color: #8BC34A; /* Green for Seek and Destroy */
+    border-color: #f60004; /* Green for Seek and Destroy */
 }
 
 [data-archetype="Recon"] {
-    border-color: #9C27B0; /* Purple for Recon */
+    border-color: #d77205; /* Purple for Recon */
 }
 
-/* Selected cards light up with an orange border */
-.card.selected {
-    border: 2px solid orange;
+/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    #cardsContainer, #savedCards {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Tighter fit for smaller screens */
+    }
+
+    .archetypes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .archetype {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .card {
+        min-height: 250px; /* Reduce height for smaller screens */
+    }
 }
