@@ -337,6 +337,7 @@ const archetypeButtons = document.querySelectorAll(".archetype");
 const cardsContainer = document.getElementById("cardsContainer");
 const savedCardsContainer = document.getElementById("savedCards");
 const equipmentContainer = document.getElementById("equipmentContainer");
+const savedequipmentContainer = document.getElementById("savedequipmentContainer");
 const cardCountDisplay = document.getElementById("cardCount");
 
 // Function to update archetype selection based on team
@@ -454,7 +455,7 @@ function updateMainInterface() {
     // Constructing the inner HTML with characteristics included
     savedEquipmentElement.innerHTML = `
         <div class="name">${equipment.name}</div>
-
+        <div class="description">${equipment.description}</div>
         <div class="characteristics">
             ${Object.entries(equipment.characteristics).map(([key, value]) => `
                 <div class="characteristic">
@@ -464,8 +465,9 @@ function updateMainInterface() {
         </div>
     `;
 
-    savedCardsContainer.appendChild(savedEquipmentElement);
+    savedequipmentContainer.appendChild(savedEquipmentElement);
 });
+
 
 }
 
