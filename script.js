@@ -336,7 +336,7 @@ const cardsContainer = document.getElementById("cardsContainer");
 const savedCardsContainer = document.getElementById("savedCards");
 const equipmentContainer = document.getElementById("equipmentContainer");
 const savedEquipmentContainer = document.getElementById("savedItems");
-const cardCountDisplay = document.getElementById("cardCount");
+
 
 // Function to handle card selection (max 3 cards)
 function handleCardSelection(card, cardElement) {
@@ -349,7 +349,7 @@ function handleCardSelection(card, cardElement) {
         selectedCards.push(card);
         cardElement.classList.add("selected");
     }
-    updateMainInterface();  // Update main interface with selected cards
+    updateMainInterface(); // Update main interface with selected cards
 }
 
 // Function to handle equipment selection (max 4 items)
@@ -363,55 +363,116 @@ function handleEquipmentSelection(equipment, equipmentElement) {
         selectedEquipment.push(equipment);
         equipmentElement.classList.add("selected");
     }
-    updateMainInterface();  // Update main interface with selected equipment
+    updateMainInterface(); // Update main interface with selected equipment
 }
 
 // Function to update archetype selection based on team
 function updateArchetypeSelection(team) {
-    const availableArchetypes = teamArchetypes[team];
+    const availableArchetypes = teamArchetypes[team] || []; // Fallback to empty array
     archetypeButtons.forEach(button => {
         const archetype = button.getAttribute("data-archetype");
         button.classList.remove("selected");
         
         // Only show archetypes available to the selected team
-        if (availableArchetypes.includes(archetype)) {
-            button.style.display = "inline-block";
-        } else {
-            button.style.display = "none";
-        }
+        button.style.display = availableArchetypes.includes(archetype) ? "inline-block" : "none";
     });
 }
 
-// Function to handle team selection
-teamButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        selectedTeam = button.getAttribute("data-team");
-        teamSelection.classList.add("hidden");  // Hide team selection
-        archetypeSelection.classList.remove("hidden");  // Show archetype selection
-        updateArchetypeSelection(selectedTeam);  // Update archetypes based on team
-    });
-});
+// Function to update the main interface with selected cards and equipment
+function updateMainInterface() {
+    savedCardsContainer.innerHTML = ''; // Clear previous selections
 
-// Function to handle archetype selection
-archetypeButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        const archetype = button.getAttribute("data-archetype");
-        
-        // Toggle archetype selection (max 2)
-        if (selectedArchetypes.includes(archetype)) {
-            selectedArchetypes = selectedArchetypes.filter(a => a !== archetype);
-            button.classList.remove("selected");
-        } else if (selectedArchetypes.length < 2) {
-            selectedArchetypes.push(archetype);
-            button.classList.add("selected");
+    // Display selected cards (with reveal condition initially)
+    selectedCards.forEach(card => {
+        const savedCardElement = document.createElement("div");
+        savedCardElement.classList.add("card");
+
+        savedCardElement.innerHTML = `
+            <div class="title">${card.title}</div>
+            <div class="reveal">${card.reveal}</div>
+            <div class="details hidden">
+                <div class="rules">${card.rules}</div>
+                <div class="victory-points">${card.victoryPoints}</div>
+            </div>
+        `;
+
+        // Toggle details when clicked
+        savedCardElement.addEventListener("click", () => {
+            const details = savedCardElement.querySelector('.details');
+            details.classList.toggle('hidden');
+        });
+
+        // Add event listener for deselecting card from Main Interface
+        savedCardElement.addEventListener("dblclick", () => {
+            selectedCards = selectedCards.filter(c => c !== card); // Remove card from selectedCards
+            updateMainInterface(); // Update main interface to reflect changes
+            updateCardsForSelectedArchetypes(); // Update card selection interface
+        });
+
+        savedCardsContainer.appendChild(savedCardElement);
+    });
+
+    // Clear the equipment section before appending new items
+    savedEquipmentContainer.innerHTML = ''; // Clear previous equipment selections
+
+    // Display selected equipment (max 4 items)
+    selectedEquipment.forEach(equipment => {
+        const savedEquipmentElement = document.createElement("div");
+        savedEquipmentElement.classList.add("equipment");
+
+        savedEquipmentElement.innerHTML = `
+            <div class="name">${equipment.name}</div>
+            <div class="description">${equipment.description}</div>
+            <div class="characteristics">
+                ${Object.entries(equipment.characteristics).map(([key, value]) => `
+                    <div class="characteristic">
+                        <strong>${key.replace(/([A-Z])/g, ' $1')}: </strong>${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        // Add event listener for deselecting equipment from Main Interface
+        savedEquipmentElement.addEventListener("dblclick", () => {
+            selectedEquipment = selectedEquipment.filter(e => e !== equipment); // Remove equipment from selectedEquipment
+            updateMainInterface(); // Update main interface to reflect changes
+            updateEquipmentSelection(); // Update equipment selection interface
+        });
+
+        savedEquipmentContainer.appendChild(savedEquipmentElement);
+    });
+
+}
+
+// Function to update available equipment for the selected team
+function updateEquipmentSelection() {
+    const availableEquipment = (teamEquipment[selectedTeam] || []).concat(teamEquipment["Common"]);
+    equipmentContainer.innerHTML = ''; // Clear existing equipment
+
+    availableEquipment.forEach(equipment => {
+        const equipmentElement = document.createElement("div");
+        equipmentElement.classList.add("equipment");
+
+        equipmentElement.innerHTML = `
+            <div class="name">${equipment.name}</div>
+            <div class="description">${equipment.description}</div>
+        `;
+
+        // Check if the equipment is already selected and apply 'selected' class
+        if (selectedEquipment.includes(equipment)) {
+            equipmentElement.classList.add("selected");
         }
 
-        updateCardsForSelectedArchetypes();  // Update cards when archetypes change
-    });
-});
+        // Add event listener for equipment selection
+        equipmentElement.addEventListener("click", () => handleEquipmentSelection(equipment, equipmentElement));
 
+        equipmentContainer.appendChild(equipmentElement);
+    });
+}
+
+// Function to update cards based on selected archetypes
 function updateCardsForSelectedArchetypes() {
-    cardsContainer.innerHTML = '';  // Clear existing cards
+    cardsContainer.innerHTML = ''; // Clear existing cards
     selectedArchetypes.forEach(archetype => {
         archetypes[archetype].forEach(card => {
             const cardElement = document.createElement("div");
@@ -440,114 +501,57 @@ function updateCardsForSelectedArchetypes() {
     });
 }
 
-// Function to update the main interface with selected cards and equipment
-function updateMainInterface() {
-    savedCardsContainer.innerHTML = '';  // Clear previous selections (TacOps and Equipment)
-
-    // Display selected cards (with reveal condition initially)
-    selectedCards.forEach(card => {
-        const savedCardElement = document.createElement("div");
-        savedCardElement.classList.add("card");
-
-        savedCardElement.innerHTML = `
-            <div class="title">${card.title}</div>
-            <div class="reveal">${card.reveal}</div>
-            <div class="details hidden">
-                <div class="rules">${card.rules}</div>
-                <div class="victory-points">${card.victoryPoints}</div>
-            </div>
-        `;
-
-        // Toggle details when clicked
-        savedCardElement.addEventListener("click", () => {
-            const details = savedCardElement.querySelector('.details');
-            details.classList.toggle('hidden');
-        });
-
-        // Add event listener for deselecting card from Main Interface
-        savedCardElement.addEventListener("dblclick", () => {
-            selectedCards = selectedCards.filter(c => c !== card); // Remove card from selectedCards
-            updateMainInterface();  // Update main interface to reflect changes
-            updateCardsForSelectedArchetypes(); // Update card selection interface
-        });
-
-        savedCardsContainer.appendChild(savedCardElement);
+// Function to handle team selection
+teamButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        selectedTeam = button.getAttribute("data-team");
+        teamSelection.classList.add("hidden"); // Hide team selection
+        archetypeSelection.classList.remove("hidden"); // Show archetype selection
+        updateArchetypeSelection(selectedTeam); // Update archetypes based on team
+        updateEquipmentSelection(); // Update equipment options
     });
+});
 
-    // Clear the equipment section before appending new items
-    savedEquipmentContainer.innerHTML = '';  // Clear previous equipment selections
-
-    // Display selected equipment (max 4 items)
-    selectedEquipment.forEach(equipment => {
-        const savedEquipmentElement = document.createElement("div");
-        savedEquipmentElement.classList.add("equipment");
-
-        // Construct the inner HTML with characteristics included
-        savedEquipmentElement.innerHTML = `
-            <div class="name">${equipment.name}</div>
-            <div class="description">${equipment.description}</div>
-            <div class="characteristics">
-                ${Object.entries(equipment.characteristics).map(([key, value]) => `
-                    <div class="characteristic">
-                        <strong>${key.replace(/([A-Z])/g, ' $1')}: </strong>${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
-                    </div>
-                `).join('')}
-            </div>
-        `;
-
-        // Add event listener for deselecting equipment from Main Interface
-        savedEquipmentElement.addEventListener("dblclick", () => {
-            selectedEquipment = selectedEquipment.filter(e => e !== equipment); // Remove equipment from selectedEquipment
-            updateMainInterface();  // Update main interface to reflect changes
-            updateEquipmentSelection(); // Update equipment selection interface
-        });
-
-        savedEquipmentContainer.appendChild(savedEquipmentElement);
-    });
-
-    // Update the card count
-    cardCountDisplay.textContent = `${selectedCards.length} TacOps cards, ${selectedEquipment.length} items selected`;
-}
-
-
-// Function to update available equipment for the selected team
-function updateEquipmentSelection() {
-    const availableEquipment = teamEquipment[selectedTeam].concat(teamEquipment["Common"]);
-    equipmentContainer.innerHTML = '';  // Clear existing equipment
-
-    availableEquipment.forEach(equipment => {
-        const equipmentElement = document.createElement("div");
-        equipmentElement.classList.add("equipment");
-
-        equipmentElement.innerHTML = `
-            <div class="name">${equipment.name}</div>
-            <div class="description">${equipment.description}</div>
-        `;
-
-        // Check if the equipment is already selected and apply 'selected' class
-        if (selectedEquipment.includes(equipment)) {
-            equipmentElement.classList.add("selected");
+// Function to handle archetype selection
+archetypeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const archetype = button.getAttribute("data-archetype");
+        
+        // Toggle archetype selection (max 2)
+        if (selectedArchetypes.includes(archetype)) {
+            selectedArchetypes = selectedArchetypes.filter(a => a !== archetype);
+            button.classList.remove("selected");
+        } else if (selectedArchetypes.length < 2) {
+            selectedArchetypes.push(archetype);
+            button.classList.add("selected");
         }
 
-        // Add event listener for equipment selection
-        equipmentElement.addEventListener("click", () => handleEquipmentSelection(equipment, equipmentElement));
-
-        equipmentContainer.appendChild(equipmentElement);
+        updateCardsForSelectedArchetypes(); // Update cards when archetypes change
     });
-}
+});
 
 // Menu navigation
 teamMenuLink.addEventListener("click", () => showSection(teamSelection));
 archetypeMenuLink.addEventListener("click", () => showSection(archetypeSelection));
 equipmentMenuLink.addEventListener("click", () => {
-    updateEquipmentSelection();  // Update equipment based on the selected team
+    updateEquipmentSelection(); // Update equipment based on the selected team
     showSection(equipmentSelection);
 });
 selectedCardsMenuLink.addEventListener("click", () => showSection(selectedCardsSection));
 
-// Ensure team selection is visible initially
-document.addEventListener("DOMContentLoaded", () => showSection(teamSelection));
+// Show the appropriate section
+function showSection(section) {
+    // Hide all sections
+    [teamSelection, archetypeSelection, equipmentSelection, selectedCardsSection].forEach(sec => sec.classList.add("hidden"));
+    
+    // Show the requested section
+    section.classList.remove("hidden");
+}
 
+// Ensure team selection is visible initially
+document.addEventListener("DOMContentLoaded", () => {
+    showSection(teamSelection);
+});
 
 
 // Menu navigation for selecting team
