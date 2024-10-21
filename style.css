@@ -1,3 +1,4 @@
+/* General reset and layout */
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +10,7 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Header styles */
 header {
     background-color: #333;
     color: white;
@@ -16,17 +18,49 @@ header {
     text-align: center;
 }
 
+/* Tab Menu Styles */
 nav ul {
     display: flex;
     justify-content: center;
     list-style-type: none;
+    margin-bottom: 20px;
+}
+
+nav ul li {
+    margin: 0 10px;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-    padding: 0.5rem;
+    padding: 10px 20px;
+    background-color: #444;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Mobile-Friendly Tabs */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Stack tabs vertically */
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0; /* Add vertical margin between tabs */
+    }
+
+    nav ul li a {
+        width: 90%; /* Make tabs almost full width on mobile */
+        font-size: 1.5rem; /* Increase font size for easier tapping */
+        padding: 15px 0; /* Increase padding for touch-friendly design */
+        text-align: center;
+    }
 }
 
 /* Active section styles */
@@ -38,6 +72,7 @@ nav ul li a {
     display: none;
 }
 
+/* Main content styling */
 main {
     margin: 20px;
 }
@@ -47,6 +82,7 @@ h2 {
     color: #333;
     text-align: center;
 }
+
 
 .equipment {
     padding: 10px;
