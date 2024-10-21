@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+main {
+    margin: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.archetypes {
+    display: flex;
+    gap: 10px;
+}
+
+.archetype, .card {
+    padding: 10px 20px;
+    border: 2px solid #333;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.archetype.selected, .card.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#selectedArchetypesDisplay {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+#savedCards .card {
+    background-color: #ff9800;
+}
+
+#cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#savedCards {
+    display: flex;
+    gap: 10px;
+}
