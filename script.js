@@ -8,10 +8,17 @@ const archetypes = {
 let selectedArchetypes = [];
 let selectedCards = [];
 
+// DOM Elements
 const archetypeButtons = document.querySelectorAll(".archetype");
 const cardsContainer = document.getElementById("cardsContainer");
 const savedCardsContainer = document.getElementById("savedCards");
 const cardCountDisplay = document.getElementById("cardCount");
+
+const archetypeSelection = document.getElementById("archetypeSelection");
+const selectedCardsSection = document.getElementById("selectedCards");
+
+const archetypeMenuLink = document.getElementById("archetypeMenuLink");
+const selectedCardsMenuLink = document.getElementById("selectedCardsMenuLink");
 
 // Add event listeners to archetype buttons
 archetypeButtons.forEach(button => {
@@ -78,4 +85,24 @@ function updateSavedCards() {
     });
 
     cardCountDisplay.textContent = selectedCards.length;
+
+    // Deselect cards from the selection view if they are removed from saved cards
+    updateArchetypeSelection();
 }
+
+// Switching between pages (sections)
+archetypeMenuLink.addEventListener("click", () => {
+    archetypeSelection.classList.add("active");
+    archetypeSelection.classList.remove("hidden");
+
+    selectedCardsSection.classList.add("hidden");
+    selectedCardsSection.classList.remove("active");
+});
+
+selectedCardsMenuLink.addEventListener("click", () => {
+    selectedCardsSection.classList.add("active");
+    selectedCardsSection.classList.remove("hidden");
+
+    archetypeSelection.classList.add("hidden");
+    archetypeSelection.classList.remove("active");
+});
