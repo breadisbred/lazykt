@@ -33,27 +33,72 @@ main {
 
 h2 {
     margin-bottom: 20px;
+    color: #333;
+    text-align: center;
 }
 
 .archetypes {
     display: flex;
+    justify-content: center;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
-.archetype, .card {
+.archetype {
     padding: 10px 20px;
     border: 2px solid #333;
     background-color: #fff;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.archetype.selected, .card.selected {
+.archetype:hover {
+    background-color: #ddd;
+}
+
+.archetype.selected {
     background-color: #4CAF50;
     color: white;
 }
 
 #selectedArchetypesDisplay {
     margin-top: 20px;
+    text-align: center;
+}
+
+#cardsContainer, #savedCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+    transition: border-color 0.3s ease;
+}
+
+.card.selected {
+    border-color: orange;
+}
+
+.card .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card .reveal, .card .rules, .card .victory-points {
+    margin-bottom: 8px;
+    font-size: 0.9em;
 }
 
 .hidden {
@@ -65,17 +110,27 @@ h2 {
 }
 
 #savedCards .card {
-    background-color: #ff9800;
+    background-color: #ffffff;
 }
 
-#cardsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+/* Archetype color coding */
+[data-archetype="Infiltration"] {
+    border-color: #2196F3; /* Blue for Infiltration */
 }
 
-#savedCards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+[data-archetype="Security"] {
+    border-color: #FF5722; /* Orange for Security */
+}
+
+[data-archetype="Seek and Destroy"] {
+    border-color: #8BC34A; /* Green for Seek and Destroy */
+}
+
+[data-archetype="Recon"] {
+    border-color: #9C27B0; /* Purple for Recon */
+}
+
+/* Selected cards light up with an orange border */
+.card.selected {
+    border: 2px solid orange;
 }
