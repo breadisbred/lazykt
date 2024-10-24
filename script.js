@@ -6,23 +6,193 @@ const teamArchetypes = {
     "Other": ["Infiltration", "Security", "Seek and Destroy", "Recon"] // Free choice
 };
 
+const teamPloys = {
+    "Sneaky Gitz": {
+        "Strategic Ploys": [
+            {
+                title: "WAAAGH!",
+                cost: "1 CP",
+                description: "Friendly KOMMANDO operatives' melee weapons have the Balanced weapon rule.",
+                tag: "Offensive"
+            },
+            {
+                title: "DAKKA! DAKKA! DAKKA!",
+                cost: "1 CP",
+                description: "Friendly KOMMANDO operatives' ranged weapons have the Punishing weapon rule.",
+                tag: "Offensive"
+            },
+            {
+                title: "Skulk About",
+                cost: "1 CP",
+                description: "Whenever an enemy operative is shooting a friendly KOMMANDO operative that has a Conceal order, you can retain one of your defence dice as a normal success without rolling it (in addition to a cover save, if any).",
+                tag: "Defensive"
+            },
+            {
+                title: "SSSSHHHH!",
+                cost: "1 CP",
+                description: "Each friendly KOMMANDO operative that is not a valid target for enemy operatives, or has a conceal order and is more than 6\" from enemy operatives, can immediately perform a free Dash action. You cannot use this ploy during the first turning point.",
+                tag: "Utility"
+            }
+        ],
+        "Firefight Ploys": [
+            {
+                title: "Kunnin' But Brutal",
+                cost: "1 CP",
+                description: "Use this firefight ploy when a friendly KOMMANDO operative that has a Conceal order is fighting during an activation in which it has performed the Charge action, and you’re resolving the first attack die. Treat that normal success as a critical success instead.",
+                tag: "Offensive"
+            },
+            {
+                title: "Krump 'Em",
+                cost: "1 CP",
+                description: "Use this firefight ploy at the end of the Firefight phase. Select one friendly KOMMANDO operative. It can immediately perform a free Fight action.",
+                tag: "Offensive"
+            },
+            {
+                title: "Shake It Off",
+                cost: "1 CP",
+                description: "Use this firefight ploy when a friendly KOMMANDO operative is activated, or when its APL stat is changed. Until the start of the next turning point, you can ignore any changes to its APL stat.",
+                tag: "Defensive"
+            },
+            {
+                title: "Just A Scratch",
+                cost: "1 CP",
+                description: "Use this firefight ploy when an attack die inflicts Normal Damage on a friendly KOMMANDO operative (excluding BOMB SQUIG and GROT). Ignore that inflicted damage.",
+                tag: "Defensive"
+            }
+        ]
+    },
+    "Joker Elves": {
+        "Strategic Ploys": [
+            {
+                title: "Darting Salvo",
+                cost: "1 CP",
+                description: "Whenever a friendly VOID-DANCER TROUPE operative performs the Reposition action during its activation, it can perform the Shoot action during that action (it must do so in a location it can be placed, and any remaining move distance it had from that Reposition action can be used after it does so).",
+                tag: "Offensive"
+            },
+            {
+                title: "Cegorach's Jest",
+                cost: "1 CP",
+                description: "Whenever a friendly VOID-DANCER TROUPE operative is fighting or retaliating and your opponent strikes with a normal success, you can roll one D6: if the result is less than the Hit stat of your opponent’s selected weapon, that strike is a block instead (ignore the Brutal weapon rule, if relevant). You cannot use this rule for the rest of the sequence.",
+                tag: "Defensive"
+            },
+            {
+                title: "Prismatic Blur",
+                cost: "1 CP",
+                description: "Whenever an operative is shooting a friendly VOID-DANCER TROUPE operative that performed an action in which it moved during this turning point, you can re-roll one of your defence dice.",
+                tag: "Defensive"
+            },
+            {
+                title: "Rising Crescendo",
+                cost: "1 CP",
+                description: "Friendly VOID-DANCER TROUPE operatives can perform the Dash action during the same activation in which they performed the Charge action, but not vice versa (i.e. not Dash then Charge).",
+                tag: "Utility"
+            }
+        ],
+        "Firefight Ploys": [
+            {
+                title: "Murderous Entrance",
+                cost: "1 CP",
+                description: "Use this firefight ploy when a friendly VOID-DANCER TROUPE operative is fighting during an activation in which it performed the Charge action, after you strike. You can immediately resolve another of your normal successes as a strike (before your opponent), or a critical success if there are none.",
+                tag: "Offensive"
+            },
+            {
+                title: "Domino Field",
+                cost: "1 CP",
+                description: "Use this firefight ploy when an operative is shooting a friendly VOID-DANCER TROUPE operative during the Resolve Defence Dice step. You can allocate one of your rolled successful dice to block all of your opponent's attack dice with matching results.",
+                tag: "Defensive"
+            },
+            {
+                title: "Elusive Target",
+                cost: "1 CP",
+                description: "Use this firefight ploy during a friendly VOID-DANCER TROUPE operative’s activation. Until the start of its next activation, while that operative has a Conceal order and is in cover, it cannot be selected as a valid target.",
+                tag: "Defensive"
+            },
+            {
+                title: "The Curtain Falls",
+                cost: "1 CP",
+                description: "Use this firefight ploy when a friendly VOID-DANCER TROUPE operative is fighting, after you strike with a critical success. End that sequence (any remaining attack dice are discarded) and immediately perform a free Dash or Fall Back action up to 3\" with that operative (then the Fight action ends). That operative can do so even if it’s performed an action that prevents it from performing the Dash or Fall Back action.",
+                tag: "Utility"
+            }
+        ]
+    },
+    "Sex Elves": {
+        "Strategic Ploys": [
+            {
+                title: "Blade Artists",
+                cost: "1 CP",
+                description: "Friendly HAND OF THE ARCHON operatives’ melee weapons have the Rending weapon rule.",
+                tag: "Offensive"
+            },
+            {
+                title: "Merciless Sadists",
+                cost: "1 CP",
+                description: "Whenever a friendly HAND OF THE ARCHON operative is shooting against or fighting against a wounded enemy operative, that friendly operative’s weapons have the Balanced weapon rule.",
+                tag: "Offensive"
+            },
+            {
+                title: "Denizens Of Night",
+                cost: "1 CP",
+                description: "Whenever an enemy operative is shooting a friendly HAND OF THE ARCHON operative that’s more than 2\" from enemy operatives, if Heavy terrain is intervening, or any part of that friendly operative’s base is underneath Vantage terrain, you can re-roll one of your defence dice.",
+                tag: "Defensive"
+            },
+            {
+                title: "From Darkness, Death",
+                cost: "1 CP",
+                description: "Whenever a friendly HAND OF THE ARCHON operative is activated, before you determine its order, you can select one enemy operative that friendly operative isn’t a valid target for. Until the end of that activation, the first time that friendly operative is shooting against or fighting against that enemy operative, you can retain one of your normal successes as a critical success instead.",
+                tag: "Utility"
+            }
+            
+        ],
+        "Firefight Ploys": [
+            {
+                title: "Prey On The Wounded",
+                cost: "1 CP",
+                description: "Use this firefight ploy after rolling your attack dice for a friendly HAND OF THE ARCHON operative, if it’s shooting against or fighting against a wounded enemy operative. You can re-roll any of your attack dice.",
+                tag: "Offensive"
+            },
+            {
+                title: "Cruel Deception",
+                cost: "1 CP",
+                description: "Use this firefight ploy during a friendly HAND OF THE ARCHON operative’s activation. During that activation, that operative can perform the Fall Back action for 1 less AP.",
+                tag: "Utility"
+            },
+            {
+                title: "Devious Scheme",
+                cost: "1 CP",
+                description: "Use this firefight ploy after an opponent uses a firefight ploy (excluding one that costs 0CP). The next time they would use that ploy, they must spend 1 additional CP to do so (at which point this effect ends). You cannot use this ploy again during the battle until its effect has ended.",
+                tag: "Utility"
+            },
+            {
+                title: "Heinous Arrogance",
+                cost: "1 CP",
+                description: "Use this firefight ploy when it’s your turn to activate a friendly operative. You can skip that activation.",
+                tag: "Utility"
+            }
+            
+        ]
+    }
+};
+
 const archetypes = {
     "Infiltration": [
         {
             title: "Implant",
-            reveal: "Reveal: When you first score VP from this op.",
+            reveal: "When you first score VP from this op.",
+            reveal_selected: "Reveal: When you first score VP from this op.",
             rules: `Whenever a friendly operative is fighting, you can implant the enemy operative instead of striking or blocking (then discard that dice). Each operative can only be implanted once, and cannot be implanted during the first turning point.`,
             victoryPoints: "Score 1 VP whenever you implant an enemy operative. Score 1 VP if any implanted enemy operatives are in the killzone at the end of each turning point."
         },
         {
             title: "Surveillance",
-            reveal: "Reveal: The first time a friendly operative performs the Surveillance Action.",
+            reveal: "The first time a friendly operative performs the Surveillance Action.",
+            reveal_selected: "Reveal: The first time a friendly operative performs the Surveillance Action.",
             rules: `Mission Action: Surveillance (1 AP). An operative cannot perform this action while it has an Engage order.`,
             victoryPoints: "Score 1 VP if a friendly operative performs Surveillance. Score 1 VP if that operative remains concealed in the killzone."
         },
         {
             title: "Wiretap",
-            reveal: "Reveal: The first time a friendly operative performs the Wiretap Action.",
+            reveal: "The first time a friendly operative performs the Wiretap Action.",
+            reveal_selected: "Reveal: The first time a friendly operative performs the Wiretap Action.",
             rules: `Mission Action: Wiretap (1 AP). Place a Wiretap marker within the active operative's control range.`,
             victoryPoints: "Score 1 VP if an enemy operative starts or ends an action near your Wiretap marker. Score 1 VP if enemy operatives are within 2\" of your Wiretap marker."
         }
@@ -30,19 +200,22 @@ const archetypes = {
     "Security": [
         {
             title: "Contain",
-            reveal: "Reveal: When you first score VP from this op.",
+            reveal: "When you first score VP from this op.",
+            reveal_selected: "Reveal: When you first score VP from this op.",
             rules: "If there are no enemy operatives wholly within your territory or drop zone.",
             victoryPoints: "Score 1 VP if there are no enemy operatives within your territory and 1 VP if none are within 6\" of your drop zone."
         },
         {
             title: "Secure Centre",
-            reveal: "Reveal: When you first score VP from this op.",
+            reveal: "When you first score VP from this op.",
+            reveal_selected: "Reveal: When you first score VP from this op.",
             rules: "Gain VP by controlling the center of the killzone or being on the centerline.",
             victoryPoints: "Score 1 VP if you control the center or more than 3\" from the centerline."
         },
         {
             title: "Take Ground",
-            reveal: "Reveal: When you first score VP from this op.",
+            reveal: "When you first score VP from this op.",
+            reveal_selected: "Reveal: When you first score VP from this op.",
             rules: "Take control of specific terrain features depending on the kill zone.",
             victoryPoints: "Score VP for controlling specific terrain features within your opponent's territory."
         }
@@ -50,19 +223,22 @@ const archetypes = {
     "Seek and Destroy": [
         {
             title: "Champion",
-            reveal: "Reveal: When you select your first Champion.",
+            reveal: "When you select your first Champion.",
+            reveal_selected: "Reveal: When you select your first Champion.",
             rules: "Select a friendly operative as your Champion each turning point.",
             victoryPoints: "Score 1 VP when your Champion incapacitates an enemy. Score 2 VP if the enemy had 12+ wounds."
         },
         {
             title: "Overrun",
-            reveal: "Reveal: When you first score VP from this op.",
+            reveal: "When you first score VP from this op.",
+            reveal_selected: "Reveal: When you first score VP from this op.",
             rules: "Score VP when friendly operatives incapacitate enemies in your opponent's territory.",
             victoryPoints: "Score 1 VP for incapacitating an enemy. Score 1 VP for having 3+ APL of friendly operatives in your opponent's territory."
         },
         {
             title: "Storm Objectives",
-            reveal: "Reveal: When you first score VP from this op.",
+            reveal: "When you first score VP from this op.",
+            reveal_selected: "Reveal: When you first score VP from this op.",
             rules: "Control objective markers that enemy operatives controlled.",
             victoryPoints: "Score 1 VP for storming an objective marker and 1 VP for controlling it at the end of the turn."
         }
@@ -70,24 +246,28 @@ const archetypes = {
     "Recon": [
         {
             title: "Confirm Kill",
-            reveal: "Reveal: The first time an enemy operative is incapacitated.",
+            reveal: "The first time an enemy operative is incapacitated.",
+            reveal_selected: "Reveal: The first time an enemy operative is incapacitated.",
             rules: "Place a Confirm Kill marker on the incapacitated enemy's control range.",
             victoryPoints: "Score 1 VP for controlling a Confirm Kill marker. Score 2 VP if the enemy had 12+ wounds."
         },
         {
             title: "Recover Items",
-            reveal: "Reveal: At the start of the Set Up operatives step.",
+            reveal: "At the start of the Set Up operatives step.",
+            reveal_selected: "Reveal: At the start of the Set Up operatives step.",
             rules: "Place Item mission markers. Perform the Pick Up Marker action after the first turning point.",
             victoryPoints: "Score 2 VP for each Item marker picked up and controlled at the end of the battle."
         },
         {
             title: "Plant Beacon",
-            reveal: "Reveal: The first time a friendly operative performs the Plant Beacon action.",
+            reveal: "The first time a friendly operative performs the Plant Beacon action.",
+            reveal_selected: "Reveal: The first time a friendly operative performs the Plant Beacon action.",
             rules: "Place Beacon markers in your or your opponent's territory.",
             victoryPoints: "Score 1 VP for placing a Beacon marker in your or your opponent's territory."
         }
     ]
 };
+
 
 // Define equipment for teams
 const teamEquipment = {
@@ -379,8 +559,12 @@ function updateArchetypeSelection(team) {
 }
 
 // Function to update the main interface with selected cards and equipment
+// Function to update the main interface with selected cards and equipment
 function updateMainInterface() {
     savedCardsContainer.innerHTML = ''; // Clear previous selections
+    savedEquipmentContainer.innerHTML = ''; // Clear previous equipment selections
+    const ploysContainer = document.getElementById("ploysContainer");
+    ploysContainer.innerHTML = ''; // Clear previous ploys
 
     // Display selected cards (with reveal condition initially)
     selectedCards.forEach(card => {
@@ -388,11 +572,13 @@ function updateMainInterface() {
         savedCardElement.classList.add("card");
 
         savedCardElement.innerHTML = `
-            <div class="title">${card.title}</div>
-            <div class="reveal">${card.reveal}</div>
-            <div class="details hidden">
-                <div class="rules">${card.rules}</div>
-                <div class="victory-points">${card.victoryPoints}</div>
+            <div class="card">
+                <div class="title">${card.title}</div>
+                <div class="reveal"><strong>${card.reveal_selected}</strong></div>
+                <div class="details">
+                    <div class="rules"><strong>Rules:</strong> ${card.rules}</div>
+                    <div class="victory-points"><strong>Victory Points:</strong> ${card.victoryPoints}</div>
+                </div>
             </div>
         `;
 
@@ -412,37 +598,96 @@ function updateMainInterface() {
         savedCardsContainer.appendChild(savedCardElement);
     });
 
-    // Clear the equipment section before appending new items
-    savedEquipmentContainer.innerHTML = ''; // Clear previous equipment selections
-
     // Display selected equipment (max 4 items)
-    selectedEquipment.forEach(equipment => {
-        const savedEquipmentElement = document.createElement("div");
-        savedEquipmentElement.classList.add("equipment");
+    // Display selected equipment (max 4 items)
+selectedEquipment.forEach(equipment => {
+    const savedEquipmentElement = document.createElement("div");
+    savedEquipmentElement.classList.add("equipment");
 
-        savedEquipmentElement.innerHTML = `
-            <div class="name">${equipment.name}</div>
-            <div class="description">${equipment.description}</div>
-            <div class="characteristics">
-                ${Object.entries(equipment.characteristics).map(([key, value]) => `
-                    <div class="characteristic">
-                        <strong>${key.replace(/([A-Z])/g, ' $1')}: </strong>${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
-                    </div>
-                `).join('')}
-            </div>
-        `;
+    savedEquipmentElement.innerHTML = `
+        <div class="name">${equipment.name}</div>
+        <div class="description">${equipment.description}</div>
+        <div class="characteristics">
+            ${Object.entries(equipment.characteristics).map(([key, value]) => {
+                if (typeof value === 'object') {
+                    return `
+                        <div class="characteristic">
+                            <strong>${key.replace(/([A-Z])/g, ' $1')}: </strong>
+                            <div style="padding-left: 10px;">
+                                ${Object.entries(value).map(([subKey, subValue]) => `
+                                    <div>${subKey}: <strong>${subValue}</strong></div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="characteristic">
+                            <strong>${key.replace(/([A-Z])/g, ' $1')}: </strong>${value}
+                        </div>
+                    `;
+                }
+            }).join('')}
+        </div>
+    `;
 
-        // Add event listener for deselecting equipment from Main Interface
-        savedEquipmentElement.addEventListener("dblclick", () => {
-            selectedEquipment = selectedEquipment.filter(e => e !== equipment); // Remove equipment from selectedEquipment
-            updateMainInterface(); // Update main interface to reflect changes
-            updateEquipmentSelection(); // Update equipment selection interface
-        });
-
-        savedEquipmentContainer.appendChild(savedEquipmentElement);
+    // Add event listener for deselecting equipment from Main Interface
+    savedEquipmentElement.addEventListener("dblclick", () => {
+        selectedEquipment = selectedEquipment.filter(e => e !== equipment); // Remove equipment from selectedEquipment
+        updateMainInterface(); // Update main interface to reflect changes
+        updateEquipmentSelection(); // Update equipment selection interface
     });
 
+    savedEquipmentContainer.appendChild(savedEquipmentElement);
+});
+
+
+    // Display selected ploys
+    // Display selected ploys
+if (selectedTeam) {
+    const teamPloysData = teamPloys[selectedTeam];
+    for (const category in teamPloysData) {
+        const categoryElement = document.createElement("div");
+        categoryElement.classList.add("ploy-category");
+        categoryElement.innerHTML = `<h3>${category}</h3>`;
+
+        teamPloysData[category].forEach(ploy => {
+            const ployElement = document.createElement("div");
+            ployElement.classList.add("ploy");
+
+            // Set the border color based on the tag
+            let borderColor = "";
+            switch (ploy.tag) {
+                case "Offensive":
+                    borderColor = "red";
+                    break;
+                case "Defensive":
+                    borderColor = "blue";
+                    break;
+                case "Utility":
+                    borderColor = "green";
+                    break;
+            }
+
+            ployElement.style.border = `2px solid ${borderColor}`;
+            ployElement.style.padding = "10px";
+            ployElement.style.margin = "5px 0";
+            ployElement.style.borderRadius = "5px"; // Rounded corners
+
+            ployElement.innerHTML = `
+                <div class="ploy-title"><strong>${ploy.tag} - ${category}: ${ploy.title} (${ploy.cost})</strong></div>
+                <div class="ploy-description">${ploy.description}</div>
+            `;
+
+            categoryElement.appendChild(ployElement);
+        });
+
+        ploysContainer.appendChild(categoryElement);
+    }
 }
+
+}
+
 
 // Function to update available equipment for the selected team
 function updateEquipmentSelection() {
@@ -472,7 +717,7 @@ function updateEquipmentSelection() {
 
 // Function to update cards based on selected archetypes
 function updateCardsForSelectedArchetypes() {
-    cardsContainer.innerHTML = ''; // Clear existing cards
+    cardsContainer.innerHTML = ''
     selectedArchetypes.forEach(archetype => {
         archetypes[archetype].forEach(card => {
             const cardElement = document.createElement("div");
@@ -480,13 +725,16 @@ function updateCardsForSelectedArchetypes() {
 
             // Show full card details initially 
             cardElement.innerHTML = `
+            <div class="card">
                 <div class="title">${card.title}</div>
-                <div class="reveal">${card.reveal}</div>
+                <div class="reveal"><strong>${card.reveal}</strong></div>
                 <div class="details">
-                    <div class="rules">${card.rules}</div>
-                    <div class="victory-points">${card.victoryPoints}</div>
+                    <div class="rules"><strong>Rules:</strong> ${card.rules}</div>
+                    <div class="victory-points"><strong>Victory Points:</strong> ${card.victoryPoints}</div>
                 </div>
-            `;
+            </div>
+        `;
+
 
             // Check if the card is already selected and apply 'selected' class
             if (selectedCards.includes(card)) {
@@ -505,10 +753,21 @@ function updateCardsForSelectedArchetypes() {
 teamButtons.forEach(button => {
     button.addEventListener("click", () => {
         selectedTeam = button.getAttribute("data-team");
+
+
+        // Clear previous selections when the team changes
+        selectedCards = [];
+        selectedArchetypes = [];
+        selectedEquipment = [];
+        cardsContainer.innerHTML = ''
+        
+        // Update the UI accordingly
+        updateMainInterface(); // Update main interface with cleared selections
+        updateArchetypeSelection(selectedTeam); // Update archetypes based on new team
+        updateEquipmentSelection(); // Update equipment options
+        
         teamSelection.classList.add("hidden"); // Hide team selection
         archetypeSelection.classList.remove("hidden"); // Show archetype selection
-        updateArchetypeSelection(selectedTeam); // Update archetypes based on team
-        updateEquipmentSelection(); // Update equipment options
     });
 });
 
