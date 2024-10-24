@@ -502,6 +502,29 @@ const teamEquipment = {
     ]
 };
 
+// Get the Joker Elves icon element by its ID
+const jokerElvesIcon = document.getElementById('jokerElvesIcon');
+
+// Set the image source to the provided URL for Joker Elves
+jokerElvesIcon.src = 'https://assets.warhammer-community.com/kt_rulesdownload-oct02-button-voiddancers-1727867758.jpg';
+jokerElvesIcon.width = 150;  // Adjust size as needed
+
+
+// Get the Sex Elves icon element by its ID
+const sexElvesIcon = document.getElementById('sexElvesIcon');
+
+// Set the image source to the provided URL for Sex Elves
+sexElvesIcon.src = 'https://assets.warhammer-community.com/kt_rulesdownload-oct02-button-handofarchon-1727867622.jpg';
+sexElvesIcon.width = 150;  // Adjust size as needed
+
+
+// Get the Sneaky Gitz icon element by its ID
+const sneakyGitzIcon = document.getElementById('sneakyGitzIcon');
+
+// Set the image source to the provided URL for Sneaky Gitz
+sneakyGitzIcon.src = 'https://assets.warhammer-community.com/kt_rulesdownload-oct02-button-kommandos-1727867712.jpg';
+sneakyGitzIcon.width = 150;  // Adjust size as needed
+ 
 
 // Global Variables
 let selectedTeam = null; // Track the selected team
